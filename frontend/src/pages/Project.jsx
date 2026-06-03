@@ -165,7 +165,7 @@ export default function Project() {
               </div>
               <div className="flex justify-between border-b border-white/20 pb-2">
                 <span>ACCOUNT</span>
-                <span className="font-black underline decoration-amber-500">1234 5678 91011</span>
+                <span className="font-black underline decoration-amber-500">0570 1809 21337</span>
               </div>
               <div className="flex justify-between">
                 <span>BRANCH</span>
