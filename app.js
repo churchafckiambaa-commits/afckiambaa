@@ -29,7 +29,7 @@ app.use(morgan("dev"));
 
 
 // ✅ CORS setup
-const allowedOrigins = ["https://afckiambaa-theta.vercel.app/"];
+const allowedOrigins = ["https://afckiambaa-psi.vercel.app/"];
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,
