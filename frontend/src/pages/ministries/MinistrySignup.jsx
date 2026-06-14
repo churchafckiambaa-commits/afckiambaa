@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { FaSignature, FaPhoneAlt, FaCross, FaQuoteLeft, FaHandHoldingHeart, FaChurch, FaEnvelope, FaChevronRight } from "react-icons/fa";
 
-// Assets (Using the same variables, ensure paths are correct)
-import image1 from "../../assets/hero3.jpeg"; // Suggested: A shot of the sanctuary
-import image2 from "../../assets/hero33.jpg"; // Suggested: People serving
-import image3 from "../../assets/youth4.jpg"; // Suggested: Worship
-import image4 from "../../assets/heronew2.jpeg"; // Suggested: Community
+// Assets
+import image1 from "../../assets/hero3.jpeg"; 
+import image2 from "../../assets/hero33.jpg"; 
+import image3 from "../../assets/youth4.jpg"; 
+import image4 from "../../assets/heronew2.jpeg"; 
 
 export default function MinistrySignup() {
+  // FIXED: State keys now match your HTML input "name" properties perfectly
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
     email: "",
-    areaOfService: "",
+    areaOfService: "", // Changed from ministry to areaOfService to match your select element
   });
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [feedback, setFeedback] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,27 +31,40 @@ export default function MinistrySignup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      params.append("fullName", formData.fullName);
-      params.append("phoneNumber", formData.phoneNumber);
-      params.append("email", formData.email);
-      params.append("ministry", formData.areaOfService);
+    setFeedback("");
 
-      // Using your existing Google Script URL
+    try {
+      // FIXED: Sending data as a JSON payload object
+      const payload = {
+        fullName: formData.fullName,
+        phoneNumber: formData.phoneNumber,
+        email: formData.email,
+        ministry: formData.areaOfService, // Extracts the correct value from state
+      };
+
+      // Your exact Google Apps Script Web App URL
       await fetch("https://script.google.com/macros/s/AKfycbx9I4EGzs0Cu315JlkcCv8iMT2plUDofTumAkRizIRyKmSqByhHSmbAUusuYPwHu6_O/exec", {
         method: "POST",
-        mode: "no-cors",
-        body: params,
+        mode: "no-cors", 
+        headers: {
+          "Content-Type": "text/plain", // Keeps cross-origin fetch simple
+        },
+        body: JSON.stringify(payload), // Send data cleanly structured
       });
 
       setSubmitted(true);
-      setFormData({ fullName: "", phoneNumber: "", email: "", areaOfService: "" });
+      setFormData({ 
+        fullName: "", 
+        phoneNumber: "", 
+        email: "",
+        areaOfService: "" // Reset accurately
+      });
     } catch (error) {
-      alert("Submission failed. Please check your connection and try again.");
+      console.error("Error:", error);
+      setFeedback("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
-    }
+    } 
   };
 
   const inputClasses = "w-full p-6 bg-zinc-900 border border-zinc-800 text-white text-sm font-bold placeholder:text-zinc-600 focus:outline-none focus:border-amber-500 transition-all focus:ring-1 focus:ring-amber-500";
@@ -134,6 +149,7 @@ export default function MinistrySignup() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  {feedback && <p className="text-red-500 text-sm font-bold uppercase tracking-wider">{feedback}</p>}
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Legal Name</label>
                     <div className="relative group">
