@@ -37,7 +37,7 @@ export default function MinistrySignup() {
       params.append("ministry", formData.areaOfService);
 
       // Using your existing Google Script URL
-      await fetch("https://script.google.com/macros/s/AKfycbxbvlmbG9hEsKv4Am6yPY76ZxmPfgeKGty2JdMwsVWLhBuXiV2QgTkO75MES8tzl-II/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbx9I4EGzs0Cu315JlkcCv8iMT2plUDofTumAkRizIRyKmSqByhHSmbAUusuYPwHu6_O/exec", {
         method: "POST",
         mode: "no-cors",
         body: params,
