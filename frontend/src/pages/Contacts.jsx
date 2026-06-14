@@ -37,7 +37,7 @@ export default function ContactPage() {
       params.append("email", formData.email);
       params.append("message", formData.message); 
 
-      await fetch("https://script.google.com/macros/s/AKfycbzGBcwBUv6R79_Iu4P8btAzzFPQcT8mStOpvwoio0oMCjs1ZEPmtL_bdG51qqFDumspsA/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbwvlwVNcWklLS-WH3-RwBU2YRNA3A_5QKEH7d2XzWpl7W86OSABRH3zIUaZOZel5Y9U/exec", {
         method: "POST",
         mode: "no-cors",
         body: params
