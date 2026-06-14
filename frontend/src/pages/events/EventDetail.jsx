@@ -14,7 +14,7 @@ export default function EventDetails() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await fetch(`https://afckiambaa-4bt6.onrender.com/api/events/${eventId}`);
+        const res = await fetch(`https://afckiambaa-as5f.onrender.com/api/events/${eventId}`);
         if (!res.ok) throw new Error("Failed to fetch event details.");
         const data = await res.json();
 
@@ -58,7 +58,7 @@ export default function EventDetails() {
   const year = eventDate.getFullYear();
 
   const imageUrl = event.image
-    ? `https://afckiambaa-4bt6.onrender.com/${event.image.replace(/\\/g, "/")}`
+    ? `https://afckiambaa-as5f.onrender.com/${event.image.replace(/\\/g, "/")}`
     : "/placeholder.jpg";
 
   return (

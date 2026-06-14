@@ -16,7 +16,7 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        "https://afckiambaa-4bt6.onrender.com/api/auth/login",
+        "https://afckiambaa-as5f.onrender.com/api/auth/login",
         { email, password }
       );
 

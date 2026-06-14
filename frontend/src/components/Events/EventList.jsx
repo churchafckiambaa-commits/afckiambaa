@@ -10,7 +10,7 @@ export default function EventList() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch("https://afckiambaa-4bt6.onrender.com/api/events");
+        const res = await fetch("https://afckiambaa-as5f.onrender.com/api/events");
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
         setEvents(data || []);

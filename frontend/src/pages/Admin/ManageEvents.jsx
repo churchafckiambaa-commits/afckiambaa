@@ -14,7 +14,7 @@ function ManageEvents() {
 
   const fetchEvents = async () => {
     try {
-      const res = await axios.get("https://afckiambaa-4bt6.onrender.com/api/events");
+      const res = await axios.get("https://afckiambaa-as5f.onrender.com/api/events");
       setEvents(res.data || []);
     } catch (err) {
       console.error("Error fetching events:", err);
@@ -33,7 +33,7 @@ function ManageEvents() {
     }
 
     try {
-      await axios.delete(`https://afckiambaa-4bt6.onrender.com/api/events/${id}`, {
+      await axios.delete(`https://afckiambaa-as5f.onrender.com/api/events/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEvents(events.filter((event) => event._id !== id));

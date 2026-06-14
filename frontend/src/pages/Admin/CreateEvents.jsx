@@ -46,7 +46,7 @@ function CreateEvent() {
       formData.append("description", eventData.description);
       formData.append("image", image);
 
-      await axios.post("https://afckiambaa-4bt6.onrender.com/api/events", formData, {
+      await axios.post("https://afckiambaa-as5f.onrender.com/api/events", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
