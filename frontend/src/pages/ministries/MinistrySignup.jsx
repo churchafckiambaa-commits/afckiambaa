@@ -28,28 +28,27 @@ export default function MinistrySignup() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setFeedback("");
 
     try {
-      // FIXED: Sending data as a JSON payload object
       const payload = {
         fullName: formData.fullName,
         phoneNumber: formData.phoneNumber,
         email: formData.email,
-        ministry: formData.areaOfService, // Extracts the correct value from state
+        ministry: formData.areaOfService,
       };
 
-      // Your exact Google Apps Script Web App URL
-      await fetch("https://script.google.com/macros/s/AKfycbx9I4EGzs0Cu315JlkcCv8iMT2plUDofTumAkRizIRyKmSqByhHSmbAUusuYPwHu6_O/exec", {
+      // FIXED: Swapped to use your actual, active deployment URL from your logs
+      await fetch("https://script.google.com/macros/s/AKfycb5aR-vURqn8gR0_U3S-g6nEJChsdTtltLxRKQPmureS9BfWJf5EGKJtl2CrB5TVLHl1g/exec", {
         method: "POST",
         mode: "no-cors", 
         headers: {
-          "Content-Type": "text/plain", // Keeps cross-origin fetch simple
+          "Content-Type": "text/plain", 
         },
-        body: JSON.stringify(payload), // Send data cleanly structured
+        body: JSON.stringify(payload),
       });
 
       setSubmitted(true);
@@ -57,7 +56,7 @@ export default function MinistrySignup() {
         fullName: "", 
         phoneNumber: "", 
         email: "",
-        areaOfService: "" // Reset accurately
+        areaOfService: "" 
       });
     } catch (error) {
       console.error("Error:", error);
