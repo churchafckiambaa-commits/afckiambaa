@@ -21,29 +21,31 @@ const app = express();
 // ⭐ Connect to MongoDB
 connectDB();
 
-// ⭐ 1. FIRST: CORS Setup (Must be before Helmet and Body Parsers!)
-const allowedOrigins = ["https://afckiambaa-psi.vercel.app"];
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, or your internal cron ping)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-// ⭐ 2. SECOND: Security & Logging Middlewares
-app.use(helmet()); 
+// ⭐ Middlewares
+app.use(helmet()); // optional security headers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-// ❌ REMOVED: Your manual app.use((req, res, next) => { ... }) block is completely deleted.
+
+// ✅ CORS setup
+const allowedOrigins = ["https://afckiambaa-psi.vercel.app"];
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
+// Manual headers (optional)
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 // Serve uploads publicly
 app.use("/uploads", express.static("uploads"));
