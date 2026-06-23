@@ -1,18 +1,24 @@
 import multer from "multer";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import dotenv from "dotenv";
 
-// Store files in memory (buffer) to send to Cloudinary
-const storage = multer.memoryStorage();
+dotenv.config();
+
+// The library automatically picks up process.env.CLOUDINARY_URL!
+cloudinary.config(); 
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "afc_kiambaa_events", 
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  },
+});
 
 const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // optional: limit 5MB
-  fileFilter: (req, file, cb) => {
-    // Accept only images
-    if (!file.mimetype.startsWith("image/")) {
-      return cb(new Error("Only image files are allowed!"), false);
-    }
-    cb(null, true);
-  },
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
 });
 
 export default upload;
