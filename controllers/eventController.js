@@ -4,10 +4,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// ✅ Cloudinary config using CLOUDINARY_URL or keys
-cloudinary.config({
-  secure: true, // optional, ensures HTTPS
-});
+// ✅ FIXED: Leave this completely empty. 
+// This forces Cloudinary to automatically detect and parse your CLOUDINARY_URL environment variable.
+cloudinary.config();
 
 // 📌 Helper function to upload buffer to Cloudinary
 const uploadToCloudinary = (fileBuffer, folder) => {
@@ -15,8 +14,12 @@ const uploadToCloudinary = (fileBuffer, folder) => {
     const stream = cloudinary.uploader.upload_stream(
       { folder },
       (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
+        if (error) {
+          console.error("❌ Cloudinary Stream Upload Error:", error);
+          reject(error);
+        } else {
+          resolve(result);
+        }
       }
     );
     stream.end(fileBuffer);
