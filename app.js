@@ -22,6 +22,12 @@ const app = express();
 // ⭐ Connect to MongoDB
 connectDB();
 
+const allowedOrigins = ["https://afckiambaa-psi.vercel.app"];
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
 // ⭐ Middlewares
 app.use(helmet()); // optional security headers
 app.use(express.json());
@@ -30,11 +36,7 @@ app.use(morgan("dev"));
 
 
 // ✅ CORS setup
-const allowedOrigins = ["https://afckiambaa-psi.vercel.app"];
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
-}));
+
 
 // Manual headers (optional)
 app.use((req, res, next) => {
